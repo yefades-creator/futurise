@@ -1,0 +1,342 @@
+@extends('layouts.app', ['title' => 'FUTURiSE 2026 - West Java Digital Innovation Festival | APTIKOM Jabar'])
+
+@section('content')
+<!-- HERO SECTION (Section 3) -->
+<section class="gradient-brand text-white relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32">
+    <!-- Decorative Glows -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 -right-40 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-4xl mx-auto space-y-6">
+            <!-- Badge Organizer -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-cyan-300">
+                <i class="fa-solid fa-certificate"></i> Diselenggarakan oleh APTIKOM Wilayah IV Jawa Barat
+            </div>
+
+            <!-- Hero Headline -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                FUTUR<span class="text-cyan-400">i</span>SE 2026 <br>
+                <span class="text-gradient">West Java Digital Innovation Festival</span>
+            </h1>
+
+            <!-- Hero Subtitle (Section 3) -->
+            <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">
+                Temukan karya mahasiswa, coba solusi teknologi, dan bangun peluang kolaborasi bersama kampus, industri, serta mitra di Jawa Barat.
+            </p>
+
+            <!-- Venue & Date Status (Section 3: jika belum disahkan tampilkan "akan diumumkan") -->
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4 sm:p-5 max-w-2xl mx-auto text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-around gap-4 shadow-lg">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tanggal Pelaksanaan</p>
+                        @if($event->is_date_confirmed && $event->start_date)
+                            <p class="font-bold text-white">{{ $event->start_date->format('d M') }} - {{ $event->end_date->format('d M Y') }}</p>
+                        @else
+                            <p class="font-bold text-amber-300 italic">Tanggal Resmi Akan Diumumkan</p>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="hidden sm:block w-px h-10 bg-white/15"></div>
+
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Venue Festival</p>
+                        @if($event->is_date_confirmed && $event->venue_name)
+                            <p class="font-bold text-white">{{ $event->venue_name }}</p>
+                        @else
+                            <p class="font-bold text-amber-300 italic">Venue Akan Diumumkan</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown Timer (Section 3: hanya aktif setelah tanggal resmi ditetapkan) -->
+            @if($event->is_date_confirmed && $event->start_date)
+            <div class="pt-2" x-data="{
+                days: '14',
+                hours: '08',
+                minutes: '45',
+                seconds: '30',
+                init() {
+                    const target = new Date('{{ $event->start_date->format('Y-m-d') }}T08:00:00').getTime();
+                    setInterval(() => {
+                        const now = new Date().getTime();
+                        const diff = target - now;
+                        if (diff > 0) {
+                            this.days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                            this.hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                            this.minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                            this.seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+                        }
+                    }, 1000);
+                }
+            }">
+                <p class="text-xs uppercase font-bold tracking-widest text-cyan-300 mb-3">Countdown Menuju Festival</p>
+                <div class="flex justify-center gap-3 text-center">
+                    <div class="bg-slate-900/80 border border-white/20 rounded-xl px-4 py-2 w-18">
+                        <span class="block text-2xl font-black text-white" x-text="days">14</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold">Hari</span>
+                    </div>
+                    <div class="bg-slate-900/80 border border-white/20 rounded-xl px-4 py-2 w-18">
+                        <span class="block text-2xl font-black text-white" x-text="hours">08</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold">Jam</span>
+                    </div>
+                    <div class="bg-slate-900/80 border border-white/20 rounded-xl px-4 py-2 w-18">
+                        <span class="block text-2xl font-black text-white" x-text="minutes">45</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold">Menit</span>
+                    </div>
+                    <div class="bg-slate-900/80 border border-white/20 rounded-xl px-4 py-2 w-18">
+                        <span class="block text-2xl font-black text-cyan-400" x-text="seconds">30</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-semibold">Detik</span>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            <!-- 4 Main Action Buttons (Section 3: Daftar Pengunjung, Daftarkan Kampus, Jadi Exhibitor, Jadi Sponsor) -->
+            <div class="pt-6 flex flex-wrap items-center justify-center gap-3">
+                <a href="{{ route('register', ['category' => 'pengunjung']) }}" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="fa-solid fa-ticket"></i> Daftar Pengunjung (Gratis)
+                </a>
+                <a href="{{ route('register', ['category' => 'kampus']) }}" class="px-6 py-3.5 rounded-xl bg-indigo-600/90 hover:bg-indigo-600 text-white font-bold text-xs uppercase tracking-wider border border-indigo-400/30 shadow-md transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="fa-solid fa-building-columns"></i> Daftarkan Kampus
+                </a>
+                <a href="{{ route('register', ['category' => 'industri']) }}" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider border border-white/20 transition flex items-center gap-2">
+                    <i class="fa-solid fa-industry"></i> Jadi Exhibitor
+                </a>
+                <a href="{{ route('sponsors') }}" class="px-6 py-3.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold text-xs uppercase tracking-wider border border-amber-400/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-handshake"></i> Jadi Sponsor
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 1: CAKUPAN & PARAMETER AWAL (Section 1) -->
+<section class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                <span class="block text-3xl font-black text-indigo-900">30 / 60</span>
+                <span class="text-xs font-bold text-slate-700 mt-1 block">Kampus & Karya</span>
+                <p class="text-[11px] text-slate-500 mt-0.5">2 karya per booth (BR-03)</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                <span class="block text-3xl font-black text-teal-700">45</span>
+                <span class="text-xs font-bold text-slate-700 mt-1 block">Total Booth</span>
+                <p class="text-[11px] text-slate-500 mt-0.5">30 Kampus, 10 Industri, 5 Mitra</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                <span class="block text-3xl font-black text-cyan-600">10 / 30</span>
+                <span class="text-xs font-bold text-slate-700 mt-1 block">Finalis & Matchmaking</span>
+                <p class="text-[11px] text-slate-500 mt-0.5">10 Pitching, Target 30 Pertemuan</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                <span class="block text-3xl font-black text-purple-700">1.000+</span>
+                <span class="text-xs font-bold text-slate-700 mt-1 block">Pengunjung Unik</span>
+                <p class="text-[11px] text-slate-500 mt-0.5">Kumulatif & 10 Tindak Lanjut H+30</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 col-span-2 sm:col-span-1">
+                <span class="block text-3xl font-black text-amber-600">&ge; 85%</span>
+                <span class="text-xs font-bold text-slate-700 mt-1 block">Kepuasan Pengunjung</span>
+                <p class="text-[11px] text-slate-500 mt-0.5">Target minimal 200 respons valid</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION: 7 PROGRAM UNGGULAN (Section 2) -->
+<section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <span class="text-cyan-600 font-extrabold text-xs uppercase tracking-widest">Rangkaian Acara</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-1">Tujuh Program Unggulan Festival</h2>
+            </div>
+            <a href="{{ route('agenda') }}" class="text-xs font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 mt-2 md:mt-0">
+                Lihat Rundown Lengkap & Jadwal Pitching <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($sessions as $sess)
+            <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between text-xs text-slate-500 mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-bold uppercase text-[10px] 
+                            {{ $sess->type === 'pitching' ? 'bg-amber-100 text-amber-800' : ($sess->type === 'keynote' ? 'bg-indigo-100 text-indigo-800' : 'bg-teal-100 text-teal-800') }}">
+                            <i class="fa-solid fa-tag"></i> {{ strtoupper($sess->type) }}
+                        </span>
+                        <span class="font-medium"><i class="fa-regular fa-clock mr-1"></i> {{ $sess->start_time->format('H:i') }} - {{ $sess->end_time->format('H:i') }} WIB</span>
+                    </div>
+
+                    <h3 class="font-bold text-slate-900 text-base leading-snug hover:text-cyan-600 transition">{{ $sess->title }}</h3>
+                    <p class="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed">{{ $sess->description }}</p>
+                </div>
+
+                <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-cyan-500"></i> {{ $sess->stage_or_room }}</span>
+                    @if($sess->speakers->count() > 0)
+                        <span class="font-semibold text-slate-700">{{ $sess->speakers->count() }} Pembicara</span>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- SECTION: KARYA PILIHAN MAHASISWA (Section 2 & 3) -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <span class="text-indigo-600 font-extrabold text-xs uppercase tracking-widest">Inovasi Digital Kampus</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-1">Karya Pilihan Terpublikasi</h2>
+                <p class="text-xs text-slate-500 mt-1">Karya mahasiswa yang telah lolos kurasi resmi dan memiliki persetujuan publikasi (BR-11)</p>
+            </div>
+            <a href="{{ route('showcase') }}" class="text-xs font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 mt-2 md:mt-0">
+                Jelajahi 60 Karya di Showcase <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($featuredProjects as $proj)
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col justify-between group">
+                <div>
+                    <!-- Card Header / Category -->
+                    <div class="p-5 pb-3">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-800">
+                                {{ $proj->category }}
+                            </span>
+                            @if($proj->is_pitch_finalist)
+                                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-500 text-white flex items-center gap-1">
+                                    <i class="fa-solid fa-star"></i> Finalis Pitching #{{ $proj->pitch_order }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <a href="{{ route('project.detail', $proj->slug) }}" class="block font-bold text-slate-900 group-hover:text-cyan-600 transition text-base leading-snug">
+                            {{ $proj->title }}
+                        </a>
+                        <p class="text-xs text-cyan-700 font-semibold mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-building-columns text-[10px]"></i> {{ $proj->organization->name }}
+                        </p>
+                    </div>
+
+                    <!-- Problem & Solution Excerpt -->
+                    <div class="px-5 pb-4 space-y-2">
+                        <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                            <strong class="text-slate-800">Solusi:</strong> {{ $proj->solution_description }}
+                        </p>
+                        <div class="text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+                            <span class="font-bold text-slate-700">Tech Stack:</span> {{ $proj->technology_stack }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="p-5 pt-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-500 font-medium"><i class="fa-solid fa-layer-group text-slate-400"></i> {{ $proj->readiness_level }}</span>
+                    <a href="{{ route('project.detail', $proj->slug) }}" class="font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
+                        Detail Lengkap <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- SECTION: SPONSOR TERKONFIRMASI (Section 2 & 10) -->
+<section class="py-16 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="text-cyan-400 font-extrabold text-xs uppercase tracking-widest">Kolaborasi Industri</span>
+        <h2 class="text-2xl sm:text-3xl font-black mt-1">Didukung Oleh Mitra & Sponsor Terkemuka</h2>
+        <p class="text-xs text-slate-400 mt-2 max-w-xl mx-auto">Membangun ekosistem link-and-match pendidikan tinggi dengan sektor perbankan, teknologi, dan telekomunikasi di Jawa Barat.</p>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-8">
+            @foreach($sponsorAgreements as $agr)
+            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 min-w-[220px] text-center shadow-lg">
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider {{ $agr->package->slug === 'platinum' ? 'bg-slate-200 text-slate-900' : 'bg-amber-400 text-slate-950' }}">
+                    {{ $agr->package->name }}
+                </span>
+                <h4 class="text-base font-bold text-white mt-3">{{ $agr->organization->name }}</h4>
+                <p class="text-xs text-slate-400 mt-1">{{ $agr->organization->companyProfile?->sector ?? 'Corporate Sponsor' }}</p>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="mt-10">
+            <a href="{{ route('sponsors') }}" class="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                Pelajari Manfaat Paket Sponsorship & Dukungan Barang/Jasa <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION: BERITA & PENGUMUMAN RESMI -->
+<section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <span class="text-cyan-600 font-extrabold text-xs uppercase tracking-widest">Informasi Terkini</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-1">Berita & Pengumuman Acara</h2>
+            </div>
+            <a href="{{ route('news') }}" class="text-xs font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
+                Semua Berita <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach($news as $item)
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                <div class="p-6">
+                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-2">
+                        <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold">{{ $item->category }}</span>
+                        <span>&bull;</span>
+                        <span>{{ $item->published_at ? $item->published_at->format('d M Y') : 'Terbaru' }}</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base leading-snug">
+                        <a href="{{ route('news.detail', $item->slug) }}" class="hover:text-cyan-600 transition">{{ $item->title }}</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed">{{ $item->excerpt }}</p>
+                </div>
+                <div class="px-6 pb-5 pt-0">
+                    <a href="{{ route('news.detail', $item->slug) }}" class="text-xs font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1">
+                        Baca Selengkapnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- SECTION: CTA DAFTAR -->
+<section class="py-16 bg-gradient-to-r from-indigo-900 via-slate-900 to-cyan-900 text-white text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-black">Bergabunglah dalam Perayaan Inovasi Terbesar di Jawa Barat</h2>
+        <p class="text-slate-300 text-sm max-w-2xl mx-auto leading-relaxed">
+            Daftarkan diri Anda sebagai pengunjung untuk mendapatkan Tiket QR resmi, mencoba langsung 60 prototipe inovasi digital mahasiswa, dan memberikan suara untuk People's Choice Award.
+        </p>
+        <div class="pt-4 flex flex-wrap justify-center gap-4">
+            <a href="{{ route('register', ['category' => 'pengunjung']) }}" class="px-8 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-cyan-500/30 transition">
+                Dapatkan Tiket Pengunjung Gratis
+            </a>
+            <a href="{{ route('contact') }}" class="px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition">
+                Hubungi Sekretariat
+            </a>
+        </div>
+    </div>
+</section>
+@endsection
