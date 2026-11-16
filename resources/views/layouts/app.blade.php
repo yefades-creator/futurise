@@ -138,7 +138,7 @@
                     <!-- <a href="{{ route('sponsors') }}" class="hover:text-cyan-600 transition {{ request()->routeIs('sponsors') ? 'text-cyan-600 font-bold' : '' }}">Sponsor</a> -->
                     
                     <!-- Submenu Dropdown -->
-                    <div class="relative" x-data="{ open: false }" @click.outside="open = false">
+                    <!-- <div class="relative" x-data="{ open: false }" @click.outside="open = false">
                         <button @click="open = !open" class="flex items-center gap-1 hover:text-cyan-600 transition">
                             <span>Informasi</span>
                             <i class="fa-solid fa-chevron-down text-xs transition-transform" :class="{'rotate-180': open}"></i>
@@ -146,10 +146,10 @@
                         <div x-show="open" x-cloak class="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50 text-xs">
                             <!-- <a href="{{ route('participant.info') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-cyan-600 font-medium"><i class="fa-solid fa-circle-info w-5 text-slate-400"></i> Informasi Peserta</a> -->
                             <!-- <a href="{{ route('venue') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-cyan-600 font-medium"><i class="fa-solid fa-map-location-dot w-5 text-slate-400"></i> Venue & Denah Booth</a> -->
-                            <a href="{{ route('news') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-cyan-600 font-medium"><i class="fa-solid fa-newspaper w-5 text-slate-400"></i> Berita & Pengumuman</a>
+                            <!-- <a href="{{ route('news') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-cyan-600 font-medium"><i class="fa-solid fa-newspaper w-5 text-slate-400"></i> Berita & Pengumuman</a> -->
                             <!-- <a href="{{ route('contact') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-cyan-600 font-medium"><i class="fa-solid fa-headset w-5 text-slate-400"></i> Kontak Sekretariat</a> -->
                         </div>
-                    </div>
+                    </div> -->
                 </nav>
 
                 <!-- Auth Buttons -->
@@ -232,14 +232,14 @@
         <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2">
             <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Beranda</a>
             <a href="{{ route('about') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Tentang Acara</a>
-            <a href="{{ route('agenda') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Program & Agenda</a>
+            <!-- <a href="{{ route('agenda') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Program & Agenda</a>
             <a href="{{ route('showcase') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Showcase 60 Karya</a>
             <a href="{{ route('industries') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Industri & Mitra</a>
             <a href="{{ route('sponsors') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Paket Sponsor</a>
             <a href="{{ route('venue') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Venue & Denah Booth</a>
             <a href="{{ route('news') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Berita & Pengumuman</a>
             <a href="{{ route('participant.info') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Informasi Peserta & FAQ</a>
-            <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Kontak Sekretariat</a>
+            <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-lg text-slate-800 font-semibold hover:bg-slate-50">Kontak Sekretariat</a> -->
             <div class="pt-4 border-t border-slate-100 flex flex-col gap-2">
                 @auth
                     <a href="{{ route('portal.dashboard') }}" class="w-full text-center px-4 py-2.5 rounded-xl bg-indigo-900 text-white font-bold text-xs">Akses Portal</a>
